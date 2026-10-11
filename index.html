@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>효마존 - 오늘의 추천템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Song+Myung&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF9F6; --card-bg: #FFFFFF; --ink: #1C1C1A; --ink-soft: #6B665F;
+    --accent: #7C8B5E; --accent-soft: #E4E8DA; --line: #E8E6E0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: 'IBM Plex Sans KR', sans-serif; color: var(--ink); }
+  header { max-width: 640px; margin: 0 auto; padding: 48px 20px 20px; text-align: center; }
+  header h1 { font-family: 'Song Myung', serif; font-size: 30px; font-weight: 400; margin-bottom: 8px; }
+  header p { color: var(--ink-soft); font-size: 14px; }
+
+  .search-wrap { max-width: 640px; margin: 0 auto 20px; padding: 0 16px; }
+  .search-box {
+    display: flex; gap: 8px; background: var(--card-bg); border: 1px solid var(--line);
+    border-radius: 10px; padding: 6px 6px 6px 16px; align-items: center;
+  }
+  .search-box span { color: var(--ink-soft); font-size: 14px; flex-shrink: 0; }
+  .search-box input {
+    flex: 1; border: none; outline: none; font-size: 15px; font-family: inherit;
+    background: transparent; color: var(--ink); min-width: 0;
+  }
+  .search-box button {
+    border: none; background: var(--ink); color: #fff; font-size: 14px;
+    padding: 10px 18px; border-radius: 7px; cursor: pointer; flex-shrink: 0;
+  }
+  .search-msg { font-size: 12px; color: var(--ink-soft); margin-top: 8px; padding-left: 4px; min-height: 16px; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 8px 16px 60px; display: flex; flex-direction: column; gap: 14px; }
+  .card {
+    display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 14px;
+    transition: box-shadow 0.4s, border-color 0.4s;
+  }
+  .card.highlight { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .num { font-family: 'Song Myung', serif; font-size: 13px; color: var(--accent); flex-shrink: 0; writing-mode: horizontal-tb; }
+  .thumb { width: 72px; height: 72px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: var(--accent-soft);
+    display: flex; align-items: center; justify-content: center; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .noimg { color: var(--accent); font-size: 11px; }
+  .info { flex: 1; min-width: 0; }
+  .date { font-size: 11px; color: var(--ink-soft); margin-bottom: 3px; }
+  .name { font-size: 15px; font-weight: 500; line-height: 1.4; margin-bottom: 4px;
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .price { font-size: 15px; font-weight: 700; color: var(--accent); }
+  .arrow { color: var(--ink-soft); font-size: 18px; flex-shrink: 0; }
+  footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 11px; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>효마존</h1>
+    <p>지금까지 소개한 생활 아이디어템 모음 (최신순)</p>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span>No.</span>
+      <input id="searchInput" type="number" inputmode="numeric" placeholder="제품 번호 입력 (예: 3)">
+      <button id="searchBtn">찾기</button>
+    </div>
+    <div class="search-msg" id="searchMsg"></div>
+  </div>
+
+  <main>
+    
+      <a class="card" id="product-7" data-number="7" href="https://link.coupang.com/a/hGd1S6nege" target="_blank" rel="noopener">
+        <div class="num">No.7</div>
+        <div class="thumb"><img src="https://ads-partners.coupang.com/image1/e9JFTGBBC7YejuNOe2g3e5rwulqDrj1M_YwEOQiKDqHNJA4RKu1jHdbinDMdVcZ2lulum2A6wc86pijPw1csWsSHRsjQwth79NMd1Pzpf2X2kydhxIamHjy27cDQ86SewgggtOYovnAUYfqqzT_Y39OtKpSeCZM_DjI5wF6SGyR97rIDdHvBzNLCa4uY2b7T1nf63yLB3W_OUB4clI7m4eptQFNB97W-prkH6oAJqrsCocn0SHZT7b9aHBl5jcAKA1ee3QQqcAWloHkOgERR8czsWeuu72JTEaGIyHbcny7yflimYJpetLfypCtnHAQqoGCbERsEyI8btmJL_ARa2b-ScL7Bc0LhKhtQgeoVTt5sNo1TxCeYkpQ8YpX0p0iLEjHVqn6X4GmPTPX-v0J-XQdf5TT0ky3IGfEUn757Qjumwq-szq-UO0wkAzDdYbj_AnWwVLYeteX-eVZVcynfVafKxcwZW7h8mISdjpgMJseF9e657E11ON2UzjDX7yz3Z0FB7Wc6U3ILzJQ6MMMaq63Ia8OA6Wjr" alt="" /></div>
+        <div class="info">
+          <div class="date">10월 8일</div>
+          <div class="name">반디루 무타공 치약걸이 튜브거치대 클립 세트, 2개</div>
+          <div class="price">17,900원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" id="product-6" data-number="6" href="https://link.coupang.com/a/hAWXWQ4xoG" target="_blank" rel="noopener">
+        <div class="num">No.6</div>
+        <div class="thumb"><img src="https://ads-partners.coupang.com/image1/XY3BSBAyj4aosFraXX6ALplZmRipeS_b9vIXdiNFvE0ytGgBUODisenfVfFWldWZUABsc_MAbE05gegErkamCcV0XZL-Ky8DL4vE42rRCRFYFZ5zIWM8B489UeL2Gul1y9Z5Tfn9CbTDB6vh2tdkPVhIX_m8wG8D3ELCLOJ3tMMS_4lXnXkkZpUV9meZVxyf7r0yZgM1W4ik6rn8G6wh2anDVCTyaOBRiA7pBl9meFS4vMs_RqkJ0M-uYXmc-N1phO2YVdGoKdaT4wod9rYxhU0BblsjnM5CnHOUuhPVRfEVSEOHDi2SXEeT13Jgqwt_SJEO2_hBMiPQ7TGBSnN7lyavJglH9uqQ--F8EHfuSgI91Opd_soTKqKUjUEh1ePCVqB1DdvW8L2vKNapLb10MYTs_SntwbX7zMEqwoJjqqx792SWdoul4Aa9BKqx4DXmyezQJRZtIo52NjHKLM-T2pyXqMQigM9MJ5Ik8a9wSushlQJ0njcUJFlnksQqaxZsQQ1QTDSn3WUVuzfAUsD52TDfhs86RjU=" alt="" /></div>
+        <div class="info">
+          <div class="date">10월 7일</div>
+          <div class="name">CAVINA 길이조절 가능한 무타공 슬라이딩 후라이팬 정리대, 화이트, 1개, 9단</div>
+          <div class="price">28,300원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" id="product-5" data-number="5" href="https://link.coupang.com/a/hv1NbI3Yg8" target="_blank" rel="noopener">
+        <div class="num">No.5</div>
+        <div class="thumb"><img src="https://ads-partners.coupang.com/image1/ZAhbp3YB-6inmj3zZJxjoPsUi2EVkpSaoTl7Vhn-TqLEprjGGLvvoW-zu5mT7A3lzh11j67C6zKdWQAhui-66l9LxBChSmOq0OhrSTx15y0WdcpBIzBj71g9d4Z0r81UGVLg8p1E2IbcTR6WOAV5YN0cqUSDVDbncR9w7GwKHwi__oVxi7kxx5CTNT0s84sHiP2-HaXHqOxB6uxdCtX5ZkHRnVh3FZDNGdPgyvUn6feSvqFDTNfBcFH37wDe5CnEzWUJ6coNJzQv3O4RP3tj0Et9uujZPKy6JifP0uJLJYlDSbOEs1R8JZIymxGmRSkRk3MdN1MHTCeOGgXuxQtKXGM-v4LlLlBokhPPZtGX8KBuoxK89ikASQYJbXh-NrXQS8onJl6DwwpSyqQ0ohhY7tygSrAsU5f90tVbqCkJXOhfV_mAPhfWf76QGLQvllNusPCW9IhNkdSd4YfHaULDa9M1_QnB6GdpbG6A19P7lwukixc5Tei4uupPWKt-CDjZ34CMNKtGnQJorqsfqbqH-15gtwYo7YRjZvLvTGOiVVwcfBhnIutn9CdkeKEqnjGWOUsnDbBAOH_M" alt="" /></div>
+        <div class="info">
+          <div class="date">10월 2일</div>
+          <div class="name">이지호미 틈새 다용도 수납 선반 이동식 트롤리 수납장 12cm 냉장고 세탁기 좁은 공간, 1개, 화이트</div>
+          <div class="price">29,450원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" id="product-4" data-number="4" href="https://link.coupang.com/a/hs80eQieDk" target="_blank" rel="noopener">
+        <div class="num">No.4</div>
+        <div class="thumb"><img src="https://ads-partners.coupang.com/image1/XfsrFwixjJNIINASXZ5NtmQEK3a-C0ihZBNewNtCHDvkadIn63nZoHbHLy4q0OsB_L5rnfUCNUQic0UGLIp2ELXHY8ShfUDVoS6WTCeEeGBpDfuH7cD_RsegIjVZRDw9OsK7kfdQnQZJp8e0TOnBaIUEeOxNI3XI3XBdNbDZD71_MyhrMHFtaH0R0aBNBGB4_RbkqB3UhPcjv9tjQ1jWON0b8d-V_WCG8zuNc9HI4mIEl5ZBcM3E7dCmBZiozwMkDKff6-FF63XdRFctA8ryyjwCR_UGKLPYZea_CXqpKK69-nZsFqC8iR5t17euuARcaoj_Z8Pp8zpZhrxQUOQbR3qrpKB-9XyS8s6QvlcjCFaBTjYOrYZDZJVMrn3Y4XZSJ6IjUC-__lSCYasNmRUzRD_R_R24nIHJXfumIy5a_bLHbAPiI0pPnLPnYHaZf4umsX08rhw4-iKK7Fmq13AFh6tbKogbmEqqfA3st3LRQi8V9ki2keWpRji85FsJx2jCYTCRPTqCaQfoEdhd7yM1inWXsz_stzs=" alt="" /></div>
+        <div class="info">
+          <div class="date">9월 30일</div>
+          <div class="name">더 단 모자걸이 360도 회전 원목 옷장정리 벨트 넥타이 다용도 수납걸이, 1개, 라이트 우드(1+1)</div>
+          <div class="price">12,180원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" id="product-3" data-number="3" href="https://link.coupang.com/a/ho4SZzaqgC" target="_blank" rel="noopener">
+        <div class="num">No.3</div>
+        <div class="thumb"><img src="https://ads-partners.coupang.com/image1/dTbwZJjx9PTXorWydXcjUEUaI050DytS3y16qsWOuStfC0uUQSN1TL3M1G__IfKQSydRzjKY3szwYtc-yyfrjezL6KJtBK0_vt8u7BOFbZMOOtJxp9aen5D21ywbxdCzT1Sv8vUt6NMoexyxwUo4PnLW3CoJf0BHuwGN_cymGuyOVdizWdiJL6HjCNjmuPqCANiput95ot4B2V2lqWg0XqRSJ4Er5W4e97hW_A1dd8_pZM0gnvOeoIcFmvHuZZ8enrlJY-7QbD7EmmorYyvOuO5tQT5Msuqpe_PlxHXL5FrfYYyIMEK9F73Bs-5bh-9Zb1rzaHcU07n5T32FfMnOGMcc7R2Mq7LuoS3lYb8MbMgeNcMFRZrEVdfIeVn547yTrQEChG2v-RwW0TmQqkVYIRQ-13TCxv7G5WYNWYm7GJvtaeeRUMzgj1cewRySo7L5rpy1DjTlDjcqLnoHo2usDS3nthgEI6cpL_B0GYdQ-LexSAGtpt7cDDdYITSq-l1fagShgss0nWpl9uG_t9WZaBwU2R2FNQU=" alt="" /></div>
+        <div class="info">
+          <div class="date">9월 28일</div>
+          <div class="name">주방정리트레이 360회전 턴테이블 공간활용, 1개, 투명</div>
+          <div class="price">7,130원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" id="product-2" data-number="2" href="https://link.coupang.com/a/hnmUSBYKAe" target="_blank" rel="noopener">
+        <div class="num">No.2</div>
+        <div class="thumb"><img src="https://image5.coupangcdn.com/image/retail/images/77501536142093-e3d45edd-9f61-4817-9073-b527fca4280f.png" alt="" /></div>
+        <div class="info">
+          <div class="date">9월 27일</div>
+          <div class="name">코멧 깨끗한 천연펄프 2겹 키친타올 150매</div>
+          <div class="price">6,660원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" id="product-1" data-number="1" href="https://link.coupang.com/re/AFFSDP?lptag=AF8811891&pageKey=7600179424&itemId=24450268669&vendorItemId=91464121037&traceid=V0-113-a8f45c09fc4dfd16&pt=0&slot=6" target="_blank" rel="noopener">
+        <div class="num">No.1</div>
+        <div class="thumb"><img src="https://image10.coupangcdn.com/image/retail/images/476890482348998-eb869b70-bee4-4db7-9f0c-4b3ebf6bca2a.jpg" alt="" /></div>
+        <div class="info">
+          <div class="date">9월 25일</div>
+          <div class="name">탐사 무인쇄 종이용기 520ml</div>
+          <div class="price">5,190원</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+  </main>
+  <footer>이 페이지의 링크는 쿠팡파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다.</footer>
+
+  <script>
+    function goToNumber() {
+      var input = document.getElementById('searchInput');
+      var msg = document.getElementById('searchMsg');
+      var n = input.value.trim();
+      if (!n) { msg.textContent = ''; return; }
+      var target = document.getElementById('product-' + n);
+      document.querySelectorAll('.card.highlight').forEach(function(el){ el.classList.remove('highlight'); });
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.classList.add('highlight');
+        msg.textContent = '';
+        setTimeout(function(){ target.classList.remove('highlight'); }, 2200);
+      } else {
+        msg.textContent = 'No.' + n + ' 제품을 찾을 수 없어요.';
+      }
+    }
+    document.getElementById('searchBtn').addEventListener('click', goToNumber);
+    document.getElementById('searchInput').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') goToNumber();
+    });
+  </script>
+</body>
+</html>
